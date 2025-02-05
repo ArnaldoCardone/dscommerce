@@ -78,6 +78,10 @@ public class Order {
         this.payment = payment;
     }
 
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
     public List<Product> getProducts() {
         return items.stream().map(OrderItem::getProduct).toList();
     }
