@@ -33,9 +33,14 @@ public class OrderService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new ResourceNotFindException("Resource not found!"));
+        //Valida se o usuário logado é ADMIN ou é dono do pedido
+        authService.validateSelforAdmin(order.getClient().getId());
         return new OrderDTO(order);
     }
 
