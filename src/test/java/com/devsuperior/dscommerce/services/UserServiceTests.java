@@ -75,6 +75,7 @@ public class UserServiceTests {
 	@Test
 	public void authenticatedShouldReturnUserWhenUserExists() {
 		
+		// Mocking the getLoggedUsername method
 		Mockito.when(userUtil.getLoggedUsername()).thenReturn(existingUsername);
 		
 		User result = service.authenticated();
@@ -85,7 +86,7 @@ public class UserServiceTests {
 	
 	@Test
 	public void authenticatedShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExist() {
-		
+		//Gera o erro ao tentar realizar o cast para o JWT na classe CustomUserUtil
 		Mockito.doThrow(ClassCastException.class).when(userUtil).getLoggedUsername();
 		
 		Assertions.assertThrows(UsernameNotFoundException.class, () -> {

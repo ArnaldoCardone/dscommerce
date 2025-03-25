@@ -37,7 +37,7 @@ public class AuthServiceTests {
 		Mockito.when(userService.authenticated()).thenReturn(admin);
 		
 		Long userId = admin.getId();
-		
+		//Faz a chamada e verifica se não lança exceção
 		Assertions.assertDoesNotThrow(() -> {
 			service.validateSelfOrAdmin(userId);
 		});

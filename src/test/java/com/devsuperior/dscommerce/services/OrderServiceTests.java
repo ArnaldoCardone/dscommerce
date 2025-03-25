@@ -1,7 +1,5 @@
 package com.devsuperior.dscommerce.services;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -9,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -138,6 +137,7 @@ public class OrderServiceTests {
 		OrderDTO result = service.insert(orderDTO);
 		
 		Assertions.assertNotNull(result);
+
 	}
 	
 	@Test
@@ -152,9 +152,10 @@ public class OrderServiceTests {
 	
 	@Test
 	public void insertShouldThrowsUsernameNotFoundExceptionWhenUserNotLogged() {
-		
+		//Seta a exception devido a não ter usuário logado
 		Mockito.doThrow(UsernameNotFoundException.class).when(userService).authenticated();
 		
+		//Seta um usuário vazio para gerar o erro de usuário não logado
 		order.setClient(new User());
 		orderDTO = new OrderDTO(order);
 		
@@ -168,7 +169,7 @@ public class OrderServiceTests {
 	public void insertShouldThrowsEntityNotFoundExceptionWhenOrderProductIdDoesNotExist() {
 		
 		Mockito.when(userService.authenticated()).thenReturn(client);
-		
+		//Altera o id do produto para um id que não existe e inclui no pedido
 		product.setId(nonExistingOrderId);
 		OrderItem orderItem = new OrderItem(order, product, 2, 10.0);
 		order.getItems().add(orderItem);

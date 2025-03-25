@@ -13,6 +13,7 @@ public class AuthService {
 	private UserService userService;
 	
 	public void validateSelfOrAdmin(Long userId) {
+		//Verifica se o usuário éstá autenticado como Admin ou se é ele mesmo para acessar os pedidos
 		User me = userService.authenticated();
 		if (me.hasRole("ROLE_ADMIN")) {
 			return;
